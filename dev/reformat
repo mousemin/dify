@@ -2,14 +2,17 @@
 
 set -x
 
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+cd "$SCRIPT_DIR/.."
+
 # run ruff linter
-uv run --directory api --group lint ruff check --fix ./
+uv run --directory api --dev ruff check --fix ./
 
 # run ruff formatter
-uv run --directory api --group lint ruff format ./
+uv run --directory api --dev ruff format ./
 
 # run dotenv-linter linter
-uv run --project api --group lint dotenv-linter ./api/.env.example ./web/.env.example
+uv run --project api --dev dotenv-linter ./api/.env.example ./web/.env.example
 
 # run mypy check
 dev/mypy-check
